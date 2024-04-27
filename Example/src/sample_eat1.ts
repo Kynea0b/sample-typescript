@@ -37,8 +37,10 @@ class Human implements eat{
 
 }
 
-const human = new Human();
-
-human.chew("chew");
-human.putIn("putIn");
-human.swallow("swallow");
+// using interface `eat`
+var a: eat;
+a = new Human();
+// const human = new Human();
+a.chew("chew");
+a.putIn("putIn");
+a.swallow("swallow");

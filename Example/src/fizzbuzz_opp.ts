@@ -1,3 +1,5 @@
+// https://zenn.dev/karibash/articles/0d20cb3f5838f0
+
 interface Specification<Input> {
   isSatisfiedBy(value: Input): boolean;
 }
