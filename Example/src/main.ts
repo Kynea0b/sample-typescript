@@ -1,4 +1,8 @@
 
+import { calculation as keisan } from "./callee";
+import { foo } from "./callee";
+
+
 class Person {
     readonly name: string;
 
@@ -6,8 +10,6 @@ class Person {
         this.name = name;
     }
 }
-
-
 
 
 const main = () => {
@@ -19,6 +21,14 @@ const main = () => {
     let saburo: Person;
     saburo = { name: "saburo" } // OK
     console.log(saburo);
+
+
+    // module import
+    const answer: number[] = keisan(100, 10);
+    console.log(answer);
+
+    const res = foo("Hello", "World");
+    console.log(res);
 
 };
 
