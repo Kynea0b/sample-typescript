@@ -3,3 +3,6 @@ run:
 
 run2:
 	tsc hello.ts && node hello.js
+
+run-app:
+	cd my-app && npm start
