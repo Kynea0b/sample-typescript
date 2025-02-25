@@ -1,5 +1,5 @@
 import React, { useState } from "react"; 
-import { fetchMessage } from "./api"; 
+import { fetchMessage, fetchMessage2 } from "./api"; 
 
 // **** 追加機能
 import axios from "axios";
@@ -9,7 +9,9 @@ interface Message {
 // ****
 
 const App: React.FC = () => { 
-  const [message, setMessage] = useState(""); 
+  const [message, setMessage] = useState("");
+  
+
   // const [message, setMessage] = useState<string>('');
   const handleClick = async () => { 
     try { 
@@ -18,6 +20,26 @@ const App: React.FC = () => {
     } catch (error) { 
       console.error("API エラー:", error); 
       setMessage("エラーが発生しました"); 
+    } 
+  };
+
+  const [message2, setMessage2] = useState("");
+  const [count, setCount] = useState(0); // countというstate変数を0で初期化
+
+  const incrementCount = () => {
+    setCount(count + 1); // countを1増やす
+  };
+
+  const handleClick2 = async () => { 
+    try { 
+      const data = await fetchMessage2();
+      const str = `取得したメッセージだよ。${data.message} without axios!!`;
+      incrementCount()
+
+      setMessage2(str); 
+    } catch (error) { 
+      console.error("API エラー:", error); 
+      setMessage2("エラーが発生しました"); 
     } 
   };
 
@@ -40,6 +62,8 @@ const App: React.FC = () => {
     }
   };
 
+
+
   const handleGreetPost = async () => {
     try {
       const response = await axios.post<Message>('/api/greet', { name });
@@ -55,6 +79,8 @@ const App: React.FC = () => {
     <h1>Flask API からメッセージを取得</h1> 
     <button onClick={handleClick}>メッセージを取得</button> 
     <p>{message}</p>
+    <button type="submit" onClick={handleClick2}>メッセージを取得(using fetch)</button> 
+    <p>{message2}{count}</p>
     <h1>nyannnn</h1> 
     <input type="text" value={name} onChange={handleNameChange} />
     <button onClick={handleGreetGet}>Greet (GET)</button>

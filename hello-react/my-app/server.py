@@ -25,5 +25,10 @@ def greet():
 def get_message(): 
   return jsonify({"message": "Hello from Flask API!"}) 
 
+
+@app.route("/api/message2", methods=["GET"]) 
+def get_message2(): 
+  return jsonify({"message2": "Hello from Flask API2222!"}) 
+
 if __name__ == "__main__": 
   app.run(host="0.0.0.0", port=8000, debug=True) 
