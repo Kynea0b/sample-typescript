@@ -30,5 +30,23 @@ def get_message():
 def get_message2(): 
   return jsonify({"message2": "Hello from Flask API2222!"}) 
 
+@app.route("/api/users", methods=["GET"]) 
+def get_users():
+  users = [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "age": 30,
+      "email": "john.doe@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "age": 25,
+      "email": "jane.smith@example.com"
+    }
+  ]
+  return jsonify(users) 
+
 if __name__ == "__main__": 
   app.run(host="0.0.0.0", port=8000, debug=True) 

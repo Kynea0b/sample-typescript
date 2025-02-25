@@ -1,5 +1,7 @@
 import React, { useState } from "react"; 
 import { fetchMessage, fetchMessage2 } from "./api"; 
+import UserList from './UserList'; // UserList.tsx をインポート
+
 
 // **** 追加機能
 import axios from "axios";
@@ -7,6 +9,8 @@ interface Message {
   message: string;
 }
 // ****
+
+
 
 const App: React.FC = () => { 
   const [message, setMessage] = useState("");
@@ -86,6 +90,7 @@ const App: React.FC = () => {
     <button onClick={handleGreetGet}>Greet (GET)</button>
     <button onClick={handleGreetPost}>Greet (POST)</button>
     <p>{greeting}</p>
+    <UserList /> {/* UserList コンポーネントを表示 */}
 
   </div> 
  ); 

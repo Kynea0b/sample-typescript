@@ -1,5 +1,8 @@
 import axios from "axios";
 
+
+
+
 export const fetchMessage = async() => {
   try {
     const response = await axios.get("/api/message");
