@@ -1,10 +1,28 @@
 # DevToolsでデバッグ
 
+環境設定
+
+```bash
+yarn install
+```
+
 DevToolsのnetworkタブやconsoleタブでデバッグしよう。
 command + shift + i
 
 のブラウザの開発ツールを開くとfrontデバッグできる。
 該当コードも出力される。
+
+## Quick start
+
+```bash
+python server.py
+```
+
+```bash
+yarn start
+```
+
+### 備考
 
 ```bash
 % curl -i http://localhost:8000/api/message
