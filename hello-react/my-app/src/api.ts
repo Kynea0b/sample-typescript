@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 export const fetchMessage = async() => {
+  
   try {
     const response = await axios.get("/api/message");
     return response.data;
@@ -56,3 +57,42 @@ export const fetchMessage2 = async () => {
     throw error; // エラーを再throwして、呼び出し元で処理できるようにする
   }
 };
+
+
+export const goodbye = async (name: string) => {
+  const response = await fetch('/api/goodbye', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || response.statusText);
+  }
+
+  const data = await response.json();
+  return data.message;
+};
+
+
+interface Form {
+  workspace_id: number;
+  form_id: string;
+}
+
+export const form = async (workspaceId: number, formId: string) => {
+  const response = await fetch(`/api/workspaces/${workspaceId}/forms/${formId}`);
+  
+  const data: Form = await response.json();
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || response.statusText);
+  }
+
+  
+  return data;
+};
+

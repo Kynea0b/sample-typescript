@@ -28,8 +28,14 @@ def get_message():
 
 
 @app.route("/api/message2", methods=["GET"]) 
-def get_message2(): 
+def post_message2(): 
   return jsonify({"message2": "Barrrrrrr"}) 
+
+@app.route("/api/goodbye", methods=["POST"]) 
+def goodbye():
+  name = request.get_json().get('name')  # POSTリクエストからnameを取得
+  message = f"Goodbye, {name}!"
+  return jsonify({"message": message})
 
 @app.route("/api/users", methods=["GET"]) 
 def get_users():
@@ -48,6 +54,32 @@ def get_users():
     }
   ]
   return jsonify(users) 
+
+import hashlib
+
+def pad_with_zeros(number):
+  """
+  数値を6桁の0埋め文字列に変換します。
+
+  Args:
+    number: 整数値
+
+  Returns:
+    6桁の0埋め文字列
+  """
+  return str(number).zfill(6)
+
+@app.route("/api/workspaces/<int:workspace_id>/forms/<string:form_id>", methods=["GET"])
+def get_form(workspace_id, form_id):
+    # workspace_id と form_id を使って処理を行う
+    form_md5_hash = hashlib.md5(form_id.encode()).hexdigest()
+    workspace_id = pad_with_zeros(workspace_id)
+    data = {
+        "workspace_id": workspace_id,
+        "form_id": form_md5_hash,
+    }
+    return jsonify(data)
+
 
 if __name__ == "__main__": 
   app.run(host="0.0.0.0", port=8000, debug=True) 

@@ -3,6 +3,8 @@ import { fetchMessage, fetchMessage2 } from "./api";
 import UserList from './UserList'; // UserList.tsx をインポート
 import { Hoge } from './MyComponent'; // 正しいインポート方法
 import SumCalculator from "./SumCaluculator";
+import Goodbye from "./Goodbye";
+import Form from "./Form";
 
 // **** 追加機能
 import axios from "axios";
@@ -28,8 +30,7 @@ const App: React.FC = () => {
     } 
   };
 
-
-  // 
+  
 
   const [message2, setMessage2] = useState("");
   const [count, setCount] = useState(0); // countというstate変数を0で初期化
@@ -98,6 +99,8 @@ const App: React.FC = () => {
     <UserList /> {/* UserList コンポーネントを表示 */}
     <Hoge name="Hoge" age={30} /> {/* UserList コンポーネントを表示 */}
     <SumCalculator /> {/* UserList コンポーネントを表示 */}
+    <Goodbye />
+    <Form />
 
   </div> 
  ); 
