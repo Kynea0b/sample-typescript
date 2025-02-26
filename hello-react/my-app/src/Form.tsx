@@ -8,27 +8,27 @@ interface Form {
 }
 
 const Form: React.FC = () => {
+  // 画面のstate情報を取得する
   const [formData, setFormData] = useState<Form | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  //   **** 変更点 ここから　*****
-  //   const workspaceId = 123; // 例: workspaceId を定義
-  //   const formId = 'abc'; // 例: formId を定義
-  // 入力値を使用する変更
+
+  // 画面のstate情報を更新するフィールドとメソッド   
   const [workspaceId, setWorkspaceId] = useState<number | null>(null); // workspaceId を state で管理
   const [formId, setFormId] = useState<string | null>(null); // formId を state で管理
-//   const [workspaceId, setWorkspaceId] = useState<number>(0) // 例: 初期値を設定
-//   const [formId, setFormId] = useState(''); // 例: 初期値を設定
 
+  // workspaceId入力フィールドの値が変更されたときに呼び出される関数。入力値を数値に変換してworkspaceId stateを更新する。
   const handleWorkspaceIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
     setWorkspaceId(isNaN(value) ? null : value);
   };
 
+  // handleFormIdChange: formId入力フィールドの値が変更されたときに呼び出される関数。入力値をformId stateを更新する。
   const handleFormIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormId(event.target.value);
   };
 
+  // ボタンがクリックされたときに使用するメソッド
   const handleFetchData = async () => {
     if (workspaceId === null || formId === null || isNaN(workspaceId)) {
       return;
@@ -47,8 +47,10 @@ const Form: React.FC = () => {
       setLoading(false);
     }
   };
-  return (
-    
+
+  
+
+  return (  
     <div>
       <h1>FormInfo</h1>
       {/* 入力フォーム (常に表示) */}
