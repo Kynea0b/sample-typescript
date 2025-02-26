@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
 import { fetchMessage, fetchMessage2 } from "./api"; 
 import UserList from './UserList'; // UserList.tsx をインポート
-
+import { Hoge } from './MyComponent'; // 正しいインポート方法
 
 // **** 追加機能
 import axios from "axios";
@@ -91,6 +91,7 @@ const App: React.FC = () => {
     <button onClick={handleGreetPost}>Greet (POST)</button>
     <p>{greeting}</p>
     <UserList /> {/* UserList コンポーネントを表示 */}
+    <Hoge name="Hoge" age={30} /> {/* UserList コンポーネントを表示 */}
 
   </div> 
  ); 
