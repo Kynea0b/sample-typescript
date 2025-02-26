@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS 
-
+import datetime
 app = Flask(__name__) 
 CORS(app) # CORS 設定（実際には http-proxy-middleware で回避） 
 # CORS(app, origins=["http://127.0.0.1:3000", "null"])
@@ -22,13 +22,14 @@ def greet():
 
 
 @app.route("/api/message", methods=["GET"]) 
-def get_message(): 
-  return jsonify({"message": "Hello from Flask API!"}) 
+def get_message():
+  # date = datetime.now() 
+  return jsonify({"message": "Fooooooo"}) 
 
 
 @app.route("/api/message2", methods=["GET"]) 
 def get_message2(): 
-  return jsonify({"message2": "Hello from Flask API2222!"}) 
+  return jsonify({"message2": "Barrrrrrr"}) 
 
 @app.route("/api/users", methods=["GET"]) 
 def get_users():

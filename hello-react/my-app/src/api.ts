@@ -28,7 +28,8 @@ export const fetchMessage = async() => {
 
 export const fetchMessage2 = async () => {
   try {
-    const response = await fetch("/api/message");
+    const response = await fetch("/api/message2");
+    console.log(response)
 
     if (!response.ok) {
       const errorData = await response.json(); // サーバーがJSON形式でエラーを返す場合を考慮

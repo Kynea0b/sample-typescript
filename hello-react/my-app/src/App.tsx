@@ -28,6 +28,9 @@ const App: React.FC = () => {
     } 
   };
 
+
+  // 
+
   const [message2, setMessage2] = useState("");
   const [count, setCount] = useState(0); // countというstate変数を0で初期化
 
@@ -38,7 +41,8 @@ const App: React.FC = () => {
   const handleClick2 = async () => { 
     try { 
       const data = await fetchMessage2();
-      const str = `取得したメッセージだよ。${data.message} without axios!!`;
+      console.log(data)
+      const str = `取得したメッセージだよ。${data.message2} without axios!!`;
       incrementCount()
 
       setMessage2(str); 
