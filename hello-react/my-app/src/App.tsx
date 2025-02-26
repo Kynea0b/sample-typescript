@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { fetchMessage, fetchMessage2 } from "./api"; 
 import UserList from './UserList'; // UserList.tsx をインポート
 import { Hoge } from './MyComponent'; // 正しいインポート方法
+import SumCalculator from "./SumCaluculator";
 
 // **** 追加機能
 import axios from "axios";
@@ -92,6 +93,7 @@ const App: React.FC = () => {
     <p>{greeting}</p>
     <UserList /> {/* UserList コンポーネントを表示 */}
     <Hoge name="Hoge" age={30} /> {/* UserList コンポーネントを表示 */}
+    <SumCalculator /> {/* UserList コンポーネントを表示 */}
 
   </div> 
  ); 
