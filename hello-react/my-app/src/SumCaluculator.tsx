@@ -26,7 +26,12 @@ const SumCalculator: React.FC = () => {
   return (
     <div>
       <label htmlFor="num1">Number 1:</label>
-      <input type="text" id="num1" value={num1} onChange={handleNum1Change} />
+      <input 
+        type="text" 
+        id="num1" 
+        value={num1} 
+        onChange={handleNum1Change} 
+      />
 
       <label htmlFor="num2">Number 2:</label>
       <input type="text" id="num2" value={num2} onChange={handleNum2Change} />

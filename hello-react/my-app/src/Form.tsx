@@ -11,55 +11,87 @@ const Form: React.FC = () => {
   const [formData, setFormData] = useState<Form | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const workspaceId = 123; // 例: workspaceId を定義
-  const formId = 'abc'; // 例: formId を定義
+  //   **** 変更点 ここから　*****
+  //   const workspaceId = 123; // 例: workspaceId を定義
+  //   const formId = 'abc'; // 例: formId を定義
+  // 入力値を使用する変更
+  const [workspaceId, setWorkspaceId] = useState<number | null>(null); // workspaceId を state で管理
+  const [formId, setFormId] = useState<string | null>(null); // formId を state で管理
+//   const [workspaceId, setWorkspaceId] = useState<number>(0) // 例: 初期値を設定
+//   const [formId, setFormId] = useState(''); // 例: 初期値を設定
 
-  useEffect(() => {
-    const fetchFormData = async () => {
-      setLoading(true);
-      setError(null);
+  const handleWorkspaceIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    setWorkspaceId(isNaN(value) ? null : value);
+  };
 
-      try {
-        // api.tsから呼び出し
-        const data = await form(workspaceId, formId);
-        setFormData(data);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const handleFormIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormId(event.target.value);
+  };
 
-    fetchFormData();
-  }, [workspaceId, formId]); // workspaceId または formId が変更されたら再取得
+  const handleFetchData = async () => {
+    if (workspaceId === null || formId === null || isNaN(workspaceId)) {
+      return;
+    }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    setLoading(true);
+    setError(null);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!formData) {
-    return <div>No data available.</div>;
-  }
-
+    try {
+      const data = await form(workspaceId!, formId!);
+      setFormData(data);
+    } catch (error: any) {
+      setError(error.message);
+      console.error("API Error Details:", error.response?.data || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
+    
     <div>
+      <h1>FormInfo</h1>
+      {/* 入力フォーム (常に表示) */}
+      <div>
+        <label htmlFor="workspaceId">Workspace ID:</label>
+        <input
+          type="number"
+          id="workspaceId"
+          value={workspaceId === null ? '' : workspaceId}
+          onChange={handleWorkspaceIdChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="formId">Form ID:</label>
+        <input type="text" id="formId" value={formId || ''} onChange={handleFormIdChange} />
+      </div>
+
+      {/* API呼び出しボタン */}
+      <button onClick={handleFetchData}>Get Form Data</button>
+
+      {/* ローディング表示 */}
+      {loading && <div>Loading...</div>}
+
+      {/* エラー表示 */}
+      {error && <div>Error: {error}</div>}
+
       {/* 取得したデータを表示 */}
-      <p>Workspace ID（取得した）: {formData.workspace_id}</p>
-      <p>Form ID（取得した）: {formData.form_id}</p>
-      {/* 他のプロパティも表示 */}
-      {Object.keys(formData).map((key) => (
-        <div key={key}>
-          <p>
-            {key}: {formData[key]}
-          </p>
+      {formData && (
+        <div>
+          <p>Workspace ID: {formData.workspace_id}</p>
+          <p>Form ID: {formData.form_id}</p>
+          {Object.keys(formData).map((key) => (
+            <div key={key}>
+              <p>
+                {key}: {formData[key]}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
+  
 };
 
 export default Form;

@@ -85,6 +85,10 @@ interface Form {
 
 export const form = async (workspaceId: number, formId: string) => {
   const response = await fetch(`/api/workspaces/${workspaceId}/forms/${formId}`);
+  console.log("form api is called")
+  console.log(`workspaceId: ${workspaceId}`);
+  console.log(`formId: ${workspaceId}`);
+  console.log(response.json)
   
   const data: Form = await response.json();
   if (!response.ok) {
