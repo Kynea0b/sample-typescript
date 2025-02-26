@@ -5,6 +5,7 @@ import { Hoge } from './MyComponent'; // 正しいインポート方法
 import SumCalculator from "./SumCaluculator";
 import Goodbye from "./Goodbye";
 import Form from "./Form";
+import Counter from "./Counter";
 
 // **** 追加機能
 import axios from "axios";
@@ -101,6 +102,7 @@ const App: React.FC = () => {
     <SumCalculator /> {/* UserList コンポーネントを表示 */}
     <Goodbye />
     <Form />
+    <Counter />
 
   </div> 
  ); 
