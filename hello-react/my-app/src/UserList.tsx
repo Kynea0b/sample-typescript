@@ -1,4 +1,6 @@
-// UserList.tsx
+
+// 型定義のみを import。namespaceの記述を省略できる
+import type { FC } from 'react';
 import React, { useState, useEffect } from 'react';
 
 interface User {
@@ -8,7 +10,7 @@ interface User {
   email: string;
 }
 
-const UserList: React.FC = () => {
+const UserList: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
