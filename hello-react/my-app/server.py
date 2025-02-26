@@ -80,6 +80,16 @@ def get_form(workspace_id, form_id):
     }
     return jsonify(data)
 
+@app.route("/api/example/<string:id>", methods=["GET"])
+def get_data(id):
+    # workspace_id と form_id を使って処理を行う
+    id_md5_hash = hashlib.md5(id.encode()).hexdigest()
+    
+    data = {
+        "name": "fooooooooo",
+        "form_id": id_md5_hash,
+    }
+    return jsonify(data)
 
 if __name__ == "__main__": 
   app.run(host="0.0.0.0", port=8000, debug=True) 

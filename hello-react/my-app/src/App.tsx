@@ -6,6 +6,7 @@ import SumCalculator from "./SumCaluculator";
 import Goodbye from "./Goodbye";
 import Form from "./Form";
 import Counter from "./Counter";
+import DataFetcher from "./DataFetcher";
 
 // **** 追加機能
 import axios from "axios";
@@ -84,6 +85,12 @@ const App: React.FC = () => {
     }
   };
 
+  const [dataId, setDataId] = useState<number>(444);
+
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDataId(Number(e.target.value));
+  };
+
   // ******
   return ( 
   <div> 
@@ -103,6 +110,14 @@ const App: React.FC = () => {
     <Goodbye />
     <Form />
     <Counter />
+    <label htmlFor="dataIdInput">ID:</label>
+      <input
+        type="number"
+        id="dataIdInput"
+        value={String(dataId)}
+        onChange={handleIdChange}
+      />
+    <DataFetcher id={dataId} />
 
   </div> 
  ); 
