@@ -7,6 +7,8 @@ import Goodbye from "./Goodbye";
 import Form from "./Form";
 import Counter from "./Counter";
 import DataFetcher from "./DataFetcher";
+import {UserComponent} from "./User";
+import { User } from './types'; // Userの型定義のパスを適切に修正
 
 // **** 追加機能
 import axios from "axios";
@@ -91,6 +93,19 @@ const App: React.FC = () => {
     setDataId(Number(e.target.value));
   };
 
+
+  // ------
+  const [userId, setUserId] = useState<number | null>(null);
+  const [inputUserId, setInputUserId] = useState('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputUserId(event.target.value);
+  };
+
+  const handleSearch = () => {
+    setUserId(parseInt(inputUserId));
+  };
+
   // ******
   return ( 
   <div> 
@@ -118,6 +133,14 @@ const App: React.FC = () => {
         onChange={handleIdChange}
       />
     <DataFetcher id={dataId} />
+    <input
+        type="text"
+        placeholder="Enter User ID"
+        value={inputUserId}
+        onChange={handleInputChange}
+      />
+    <button onClick={handleSearch}>Search</button>
+    {userId !== null && <UserComponent userId={userId} />}
 
   </div> 
  ); 

@@ -2,13 +2,8 @@
 // 型定義のみを import。namespaceの記述を省略できる
 import type { FC } from 'react';
 import React, { useState, useEffect } from 'react';
+import {User} from './types'
 
-interface User {
-  id: number;
-  name: string;
-  age: number;
-  email: string;
-}
 
 const UserList: FC = () => {
   const [users, setUsers] = useState<User[]>([]);

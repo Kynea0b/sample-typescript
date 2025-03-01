@@ -6,6 +6,25 @@ CORS(app) # CORS 設定（実際には http-proxy-middleware で回避）
 # CORS(app, origins=["http://127.0.0.1:3000", "null"])
 
 
+users = {}  # ハッシュ値をキーとするユーザー情報辞書
+def generate_user_id(name, email):
+    """nameとemailを結合した文字列のハッシュ値を生成"""
+    combined_string = f"{name}{email}".encode('utf-8')
+    return hashlib.sha256(combined_string).hexdigest()
+
+@app.before_request
+def initialize_users():
+    """サーバー起動時にユーザー情報を登録"""
+    user1 = {"name": "Alice", "email": "alice@example.com"}
+    user2 = {"name": "Bob", "email": "bob@example.com"}
+
+    id1 = generate_user_id(user1["name"], user1["email"])
+    id2 = generate_user_id(user2["name"], user2["email"])
+
+    users[id1] = user1
+    users[id2] = user2
+
+
 @app.route('/api/greet', methods=['GET', 'POST'])
 def greet():
     if request.method == 'POST':
@@ -53,6 +72,36 @@ def get_users():
       "email": "jane.smith@example.com"
     }
   ]
+  return jsonify(users) 
+
+
+@app.route('/users/<user_id>', methods=['GET'])
+def get_user(user_id):
+    """指定されたIDのユーザー情報を取得"""
+    user = users.get(user_id)
+    if user:
+        return jsonify(user)
+    else:
+        return jsonify({"message": "User not found"}), 404
+
+@app.route("/api/user/<string:name>/email/<string:email>", methods=["GET"]) 
+def get_user_id(name, email): 
+  id = {
+    "id": generate_user_id(name, email)
+  }
+  return jsonify(id) 
+
+
+# @app.route("/api/workspaces/<int:workspace_id>/forms/<string:form_id>", methods=["GET"])
+# /api/users/${userId}:profile
+@app.route("/api/user/<string:user_id>:profile", methods=["GET"]) 
+def get_user_by_id(user_id):
+  users = {
+    "id": user_id,
+    "name": "John Doe",
+    "age": 30,
+    "email": "john.doe@example.com"
+  }
   return jsonify(users) 
 
 import hashlib
