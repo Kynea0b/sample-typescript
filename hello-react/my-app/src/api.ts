@@ -15,9 +15,6 @@ export const fetcher = async (url: string): Promise<User> => {
 
 
 
-
-
-
 export const fetchMessage = async() => {
   
   try {

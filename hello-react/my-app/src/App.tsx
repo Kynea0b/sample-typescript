@@ -7,8 +7,8 @@ import Goodbye from "./Goodbye";
 import Form from "./Form";
 import Counter from "./Counter";
 import DataFetcher from "./DataFetcher";
-import {UserComponent} from "./User";
-import { User } from './types'; // Userの型定義のパスを適切に修正
+import {UserComponent, UserIdComponent} from "./User";
+
 
 // **** 追加機能
 import axios from "axios";
@@ -94,16 +94,44 @@ const App: React.FC = () => {
   };
 
 
-  // ------
-  const [userId, setUserId] = useState<number | null>(null);
+  // ------User Info-----
+  // id
+  const [userId, setUserId] = useState<string | null>(null);
   const [inputUserId, setInputUserId] = useState('');
+  // name
+  const [userName, setUserName] = useState<string | null>(null);
+  const [inputUserName, setInputUserName] = useState('');
+  // address
+  const [userMail, setUserMail] = useState<string | null>(null);
+  const [inputUserMail, setInputUserMail] = useState('');
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  // *** id ***
+  // イベント時の値の更新
+  // input属性の値が変更されたら変更された値を状態設定する
+  const handleInputUseIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputUserId(event.target.value);
   };
-
+  // 状態変数の更新
+  // 変更された値がinput属性に設定されたらその値を状態変数に格納する
+  // クリックすれば、状態変数がnullでなければ、api処理を実行する
   const handleSearch = () => {
-    setUserId(parseInt(inputUserId));
+    setUserId(inputUserId);
+  };
+
+  // *** name ***
+  const handleInputUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputUserName(event.target.value);
+  };
+
+  // *** mail *** 
+  const handleInputUserMailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputUserMail(event.target.value);
+  };
+
+  const handleNameAndMail = () => {
+    setUserName(inputUserName);
+    setUserMail(inputUserMail)
   };
 
   // ******
@@ -133,11 +161,32 @@ const App: React.FC = () => {
         onChange={handleIdChange}
       />
     <DataFetcher id={dataId} />
+    <h1>User Infomation</h1> 
+
+    <label htmlFor="userName">Name:</label> {/* htmlFor属性を使用 */}
+    <input
+        type="text"
+        placeholder="Alice"
+        value={inputUserName}
+        onChange={handleInputUserNameChange}
+      />
+    <label htmlFor="userMail">Mail:</label> {/* htmlFor属性を使用 */}
+    <input
+        type="text"
+        placeholder="alice@example.com"
+        value={inputUserMail}
+        onChange={handleInputUserMailChange}
+      />
+    
+    <button onClick={handleNameAndMail}>Get ID</button>
+    {userName !== null && userMail !== null && <UserIdComponent userName={userName} userMail={userMail} />}
+
+    <label htmlFor="userId">ID:</label> {/* htmlFor属性を使用 */}
     <input
         type="text"
         placeholder="Enter User ID"
         value={inputUserId}
-        onChange={handleInputChange}
+        onChange={handleInputUseIdChange}
       />
     <button onClick={handleSearch}>Search</button>
     {userId !== null && <UserComponent userId={userId} />}

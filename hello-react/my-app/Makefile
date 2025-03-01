@@ -6,7 +6,7 @@ set:
 	# または適切なバージョンを指定
 
 start-server:
-	python3 server.py
+	python3 server/server.py
 
 start:
 	yarn start

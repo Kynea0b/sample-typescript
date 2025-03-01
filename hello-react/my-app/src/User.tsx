@@ -1,24 +1,47 @@
 
 import useSWR from 'swr';
 import {fetcher} from './api'
-import {User, UserProps} from './types'
+import {User, UserProps, UserNameAndMailProps} from './types'
 
-// export function Profile() {
-//   const { data, error, isLoading } = useSWR<User>('/api/user', fetcher);
+export const UserIdComponent: React.FC<UserNameAndMailProps> = ({ userName, userMail }) => {
+  console.log(`Api is called, Name:${userName}`)
+  console.log(`Api is called, Mail:${userMail}`)
+  
+  // /api/user/<string:name>/email/<string:email>
+  const { data, error, isLoading } = useSWR<User>(
+    `/api/user/${userName}/email/${userMail}`, // APIエンドポイントを変更
+    fetcher
+  );
 
-//   if (error) return <div>failed to load</div>;
-//   if (isLoading) return <div>loading...</div>;
-//   if (!data) return null;
-//   return <div>hello {data.name}!</div>;
-// }
+  console.log(`Api is called, response:${data?.id}`)
 
+
+  if (isLoading) {
+    return <div>Loading user profile...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading user profile: {error.message}</div>;
+  }
+
+  if (!data) {
+    return <div>User profile not found</div>;
+  }
+
+  return (
+    <div>
+      <h2>User ID</h2>
+      <p>UserID: {data.id}</p>
+    </div>
+  );
+};
 
 
 export const UserComponent: React.FC<UserProps> = ({ userId }) => {
   console.log(`Api is called, userId:${userId}`)
   
   const { data, error, isLoading } = useSWR<User>(
-    `/api/user/${userId}:profile`, // APIエンドポイントを変更
+    `api/users/${userId}`, // APIエンドポイントを変更
     fetcher
   );
 

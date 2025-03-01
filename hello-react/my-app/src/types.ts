@@ -8,5 +8,10 @@ export interface User {
 }
 
 export interface UserProps {
-  userId: number;
+  userId: string;
+}
+
+export interface UserNameAndMailProps {
+  userName: string;
+  userMail: string;
 }
