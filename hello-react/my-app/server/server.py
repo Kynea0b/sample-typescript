@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS 
 import datetime
+from user_manager import UserManager  # UserManager クラスをインポート
+
+
+
+
 app = Flask(__name__) 
 CORS(app) # CORS 設定（実際には http-proxy-middleware で回避） 
 # CORS(app, origins=["http://127.0.0.1:3000", "null"])
@@ -11,6 +16,12 @@ def generate_user_id(name, email):
     """nameとemailを結合した文字列のハッシュ値を生成"""
     combined_string = f"{name}{email}".encode('utf-8')
     return hashlib.sha256(combined_string).hexdigest()
+
+
+@app.before_request
+def initialize_users():
+    """サーバー起動時にユーザー情報を登録"""
+    UserManager.initialize_users()  # UserManager のクラスメソッドを使用
 
 @app.before_request
 def initialize_users():
@@ -75,10 +86,10 @@ def get_users():
   return jsonify(users) 
 
 
-@app.route('/users/<user_id>', methods=['GET'])
+@app.route('/api/users/<user_id>', methods=['GET'])
 def get_user(user_id):
     """指定されたIDのユーザー情報を取得"""
-    user = users.get(user_id)
+    user = UserManager.get_user(user_id)  # UserManager のクラスメソッドを使用    
     if user:
         return jsonify(user)
     else:
