@@ -10,3 +10,6 @@ start-server:
 
 start:
 	yarn start
+
+test:
+	yarn test

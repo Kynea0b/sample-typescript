@@ -38,3 +38,10 @@ Connection: close
   "message": "Hello from Flask API!"
 }
 ```
+
+
+## Test
+
+留意点。
+
+https://qiita.com/Sicut_study/items/bc599345e6a93f13cf98
