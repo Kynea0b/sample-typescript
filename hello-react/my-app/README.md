@@ -39,7 +39,6 @@ Connection: close
 }
 ```
 
-
 ## Test
 
 留意点。

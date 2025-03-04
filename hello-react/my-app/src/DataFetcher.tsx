@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface Data {
   id: number;
@@ -15,10 +15,10 @@ function DataFetcher({ id }: { id: number }) {
       try {
         console.log("api is called");
         console.log(`id: ${id}`);
-        
+
         const response = await fetch(`/api/example/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
         const result: Data = await response.json();
         setData(result);
@@ -42,7 +42,6 @@ function DataFetcher({ id }: { id: number }) {
 
   return (
     <div>
-      
       <p>Name: {data.name}</p>
     </div>
   );

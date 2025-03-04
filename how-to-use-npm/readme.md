@@ -1,14 +1,13 @@
-
-
 https://maku77.github.io/nodejs/npm/npm-run.html
 
-
 command1:
+
 ```
 npm run hello
 ```
 
 command2:
+
 ```
 npm run-script hello
 ```

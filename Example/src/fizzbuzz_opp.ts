@@ -24,10 +24,10 @@ class CompositeSpecification<Input> implements Specification<Input> {
   private constructor(private readonly predicate: (value: Input) => boolean) {}
 
   public static when<Input>(
-    specification: Specification<Input>
+    specification: Specification<Input>,
   ): CompositeSpecification<Input> {
     return new CompositeSpecification((value) =>
-      specification.isSatisfiedBy(value)
+      specification.isSatisfiedBy(value),
     );
   }
 
@@ -36,18 +36,18 @@ class CompositeSpecification<Input> implements Specification<Input> {
   }
 
   public and(
-    specification: Specification<Input>
+    specification: Specification<Input>,
   ): CompositeSpecification<Input> {
     return new CompositeSpecification(
-      (value) => this.predicate(value) && specification.isSatisfiedBy(value)
+      (value) => this.predicate(value) && specification.isSatisfiedBy(value),
     );
   }
 
   public or(
-    specification: Specification<Input>
+    specification: Specification<Input>,
   ): CompositeSpecification<Input> {
     return new CompositeSpecification(
-      (value) => this.predicate(value) || specification.isSatisfiedBy(value)
+      (value) => this.predicate(value) || specification.isSatisfiedBy(value),
     );
   }
 }
@@ -65,7 +65,7 @@ class NumberToStringOperation
 {
   constructor(
     private readonly converter: (value: number) => string,
-    public readonly specification: Specification<number>
+    public readonly specification: Specification<number>,
   ) {}
 
   public invoke(value: number): string {
@@ -77,12 +77,12 @@ class Operator<Input, Output> {
   constructor(
     private readonly operations: Array<
       Operation<Input, Output> & HasSpecification<Input>
-    >
+    >,
   ) {}
 
   public invoke(value: Input): Output {
     const operation = this.operations.find((operation) =>
-      operation.specification.isSatisfiedBy(value)
+      operation.specification.isSatisfiedBy(value),
     );
     if (!operation) throw new Error("Operation does not found");
     return operation.invoke(value);
@@ -94,23 +94,23 @@ const operator = new Operator([
     () => "FizzBuzz",
     CompositeSpecification.when(new TypeSpecification("number"))
       .and(new DivisibleSpecification(3))
-      .and(new DivisibleSpecification(5))
+      .and(new DivisibleSpecification(5)),
   ),
   new NumberToStringOperation(
     () => "Fizz",
     CompositeSpecification.when(new TypeSpecification("number")).and(
-      new DivisibleSpecification(3)
-    )
+      new DivisibleSpecification(3),
+    ),
   ),
   new NumberToStringOperation(
     () => "Buzz",
     CompositeSpecification.when(new TypeSpecification("number")).and(
-      new DivisibleSpecification(5)
-    )
+      new DivisibleSpecification(5),
+    ),
   ),
   new NumberToStringOperation(
     (value) => value.toString(),
-    CompositeSpecification.when(new TypeSpecification("number"))
+    CompositeSpecification.when(new TypeSpecification("number")),
   ),
 ]);
 

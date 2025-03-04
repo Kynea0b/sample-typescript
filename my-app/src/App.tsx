@@ -1,5 +1,5 @@
-import React from 'react';
-import Hello from './Hello';
+import React from "react";
+import Hello from "./Hello";
 
 const App: React.FC = () => {
   return (

@@ -1,9 +1,7 @@
-
 // 型定義のみを import。namespaceの記述を省略できる
-import type { FC } from 'react';
-import React, { useState, useEffect } from 'react';
-import {User} from './types'
-
+import type { FC } from "react";
+import React, { useState, useEffect } from "react";
+import { User } from "./types";
 
 const UserList: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -13,7 +11,7 @@ const UserList: FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('/api/users');
+        const response = await fetch("/api/users");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

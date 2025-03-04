@@ -1,57 +1,54 @@
 import axios from "axios";
-import useSWR from 'swr';
-import {User} from './types'
-
+import useSWR from "swr";
+import { User } from "./types";
 
 // 取得用関数
 export const fetcher = async (url: string): Promise<User> => {
   const res = await fetch(url);
   if (!res.ok) {
-    const error = new Error('An error occurred while fetching the data.');
+    const error = new Error("An error occurred while fetching the data.");
     throw error;
   }
   return res.json();
 };
 
-
-
-export const fetchMessage = async() => {
-  
+export const fetchMessage = async () => {
   try {
     const response = await axios.get("/api/message");
     return response.data;
-
-  } catch (error: any){
+  } catch (error: any) {
     console.error("Funnngaa");
-    console.error(axios.get)
+    console.error(axios.get);
 
     console.error("Axios エラー詳細:", {
       message: error.message,
       code: error.code,
-      response: error.response ? {
-        status:error.response.status,
-        data: error.response.data,
-        headers: error.response.headers
-      }: "No response",
+      response: error.response
+        ? {
+            status: error.response.status,
+            data: error.response.data,
+            headers: error.response.headers,
+          }
+        : "No response",
     });
     throw error;
   }
-  
 };
 
 export const fetchMessage2 = async () => {
   try {
     const response = await fetch("/api/message2");
-    console.log(response)
+    console.log(response);
 
     if (!response.ok) {
       const errorData = await response.json(); // サーバーがJSON形式でエラーを返す場合を考慮
-      throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message || response.statusText}`); // より詳細なエラーメッセージ
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorData.message || response.statusText}`,
+      ); // より詳細なエラーメッセージ
     }
 
     const data = await response.json();
     return data;
-
   } catch (error: any) {
     console.error("Funnngaa");
 
@@ -70,12 +67,11 @@ export const fetchMessage2 = async () => {
   }
 };
 
-
 export const goodbye = async (name: string) => {
-  const response = await fetch('/api/goodbye', {
-    method: 'POST',
+  const response = await fetch("/api/goodbye", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ name }),
   });
@@ -89,26 +85,25 @@ export const goodbye = async (name: string) => {
   return data.message;
 };
 
-
 interface Form {
   workspace_id: number;
   form_id: string;
 }
 
 export const form = async (workspaceId: number, formId: string) => {
-  const response = await fetch(`/api/workspaces/${workspaceId}/forms/${formId}`);
-  console.log("form api is called")
+  const response = await fetch(
+    `/api/workspaces/${workspaceId}/forms/${formId}`,
+  );
+  console.log("form api is called");
   console.log(`workspaceId: ${workspaceId}`);
   console.log(`formId: ${workspaceId}`);
-  console.log(response.json)
-  
+  console.log(response.json);
+
   const data: Form = await response.json();
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || response.statusText);
   }
 
-  
   return data;
 };
-

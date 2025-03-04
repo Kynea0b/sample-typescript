@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const SumCalculator: React.FC = () => {
-  const [num1, setNum1] = useState('');
-  const [num2, setNum2] = useState('');
+  const [num1, setNum1] = useState("");
+  const [num2, setNum2] = useState("");
   const [sum, setSum] = useState<number | null>(null);
 
   const handleNum1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +26,7 @@ const SumCalculator: React.FC = () => {
   return (
     <div>
       <label htmlFor="num1">Number 1:</label>
-      <input 
-        type="text" 
-        id="num1" 
-        value={num1} 
-        onChange={handleNum1Change} 
-      />
+      <input type="text" id="num1" value={num1} onChange={handleNum1Change} />
 
       <label htmlFor="num2">Number 2:</label>
       <input type="text" id="num2" value={num2} onChange={handleNum2Change} />
@@ -39,8 +34,12 @@ const SumCalculator: React.FC = () => {
       <button onClick={calculateSum}>Calculate Sum</button>
 
       {sum !== null && <p>Sum: {sum}</p>}
-      {isNaN(Number(num1)) && num1 !== "" && <p style={{ color: "red" }}>Number 1 is not a number</p>}
-      {isNaN(Number(num2)) && num2 !== "" && <p style={{ color: "red" }}>Number 2 is not a number</p>}
+      {isNaN(Number(num1)) && num1 !== "" && (
+        <p style={{ color: "red" }}>Number 1 is not a number</p>
+      )}
+      {isNaN(Number(num2)) && num2 !== "" && (
+        <p style={{ color: "red" }}>Number 2 is not a number</p>
+      )}
     </div>
   );
 };

@@ -13,3 +13,4 @@ npm install --save-dev @testing-library/jest-dom
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom
 npm install jest@^29.0.0 @types/jest@^29.0.0 --save-dev
 npm install --save-dev ts-jest @types/jest
+yarn add --dev prettier

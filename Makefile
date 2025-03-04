@@ -6,3 +6,6 @@ run2:
 
 run-app:
 	cd my-app && npm start
+
+fmt:
+	yarn prettier --write .

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { form } from './api'; // form 関数をインポート
+import React, { useState, useEffect } from "react";
+import { form } from "./api"; // form 関数をインポート
 
 interface Form {
   workspace_id: number;
@@ -13,12 +13,14 @@ const Form: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 画面のstate情報を更新するフィールドとメソッド   
+  // 画面のstate情報を更新するフィールドとメソッド
   const [workspaceId, setWorkspaceId] = useState<number | null>(null); // workspaceId を state で管理
   const [formId, setFormId] = useState<string | null>(null); // formId を state で管理
 
   // workspaceId入力フィールドの値が変更されたときに呼び出される関数。入力値を数値に変換してworkspaceId stateを更新する。
-  const handleWorkspaceIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWorkspaceIdChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const value = parseInt(event.target.value, 10);
     setWorkspaceId(isNaN(value) ? null : value);
   };
@@ -42,15 +44,16 @@ const Form: React.FC = () => {
       setFormData(data);
     } catch (error: any) {
       setError(error.message);
-      console.error("API Error Details:", error.response?.data || error.message);
+      console.error(
+        "API Error Details:",
+        error.response?.data || error.message,
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  
-
-  return (  
+  return (
     <div>
       <h1>FormInfo</h1>
       {/* 入力フォーム (常に表示) */}
@@ -59,13 +62,18 @@ const Form: React.FC = () => {
         <input
           type="number"
           id="workspaceId"
-          value={workspaceId === null ? '' : workspaceId}
+          value={workspaceId === null ? "" : workspaceId}
           onChange={handleWorkspaceIdChange}
         />
       </div>
       <div>
         <label htmlFor="formId">Form ID:</label>
-        <input type="text" id="formId" value={formId || ''} onChange={handleFormIdChange} />
+        <input
+          type="text"
+          id="formId"
+          value={formId || ""}
+          onChange={handleFormIdChange}
+        />
       </div>
 
       {/* API呼び出しボタン */}
@@ -93,7 +101,6 @@ const Form: React.FC = () => {
       )}
     </div>
   );
-  
 };
 
 export default Form;

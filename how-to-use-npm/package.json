@@ -1,11 +1,8 @@
 {
-	"scripts": {
-	  "hello": "echo DragonBallZ",
-	  "foo": "echo fooo",
-	  "bar": "echo barr",
-	  "baz": "echo bazzz"
-	}
-
-
+  "scripts": {
+    "hello": "echo DragonBallZ",
+    "foo": "echo fooo",
+    "bar": "echo barr",
+    "baz": "echo bazzz"
+  }
 }
-  
