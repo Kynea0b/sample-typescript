@@ -13,3 +13,6 @@ start:
 
 test:
 	yarn test
+	
+test-form:
+	yarn test Form.test.tsx
